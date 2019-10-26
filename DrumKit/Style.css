@@ -1,0 +1,43 @@
+html {
+    background: url(./musicBG.jpg);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.keys {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.key {
+    border: 1.5px solid beige;
+    border-radius: 6px;
+    display: inline-block;
+    margin: 1rem;
+    background-color: black;
+    transition: all 0.5s;
+    padding: 7px; 
+}
+
+kbd {
+    font-size: 2rem;
+    color: beige;
+    display: block;
+    text-align: center;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+}
+
+.sound {
+    color: beige;
+}
