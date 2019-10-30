@@ -32,4 +32,6 @@ body {
     background-color: beige;
     top: 50%;
     left: 2%;
+    //transform: rotate(90deg);
+    transform-origin: right;
 }
