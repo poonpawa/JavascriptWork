@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Css Variable changing dynamically</title>
+</head>
+<body>
+    <h1>Update CSS variable with <span class="h1">JS</span></h1>
+    <div class="controls">
+        <label for="spacing">Spacing :</label>
+        <input type="range" min="10" max="200" value="10" >
+
+        <label for="blur">Blur :</label>
+        <input type="range" min="10" max="200" value="10" >
+
+        <label for="color">Color :</label>
+        <input type="color" name="base" value="#ffc600" >
+
+    </div>
+    <br>
+    <img src="./lights-image.jpg">   
+    <style>
+        body {
+            background: #00335A;
+            color: beige;
+            font-weight: 100;
+            font-size: 50px;
+        }
+
+        img {
+            height: 40%;
+            width: 50%;
+        }
+        
+        h1 {
+            color: beige;
+        }
+        
+        input {
+            width: 100px;
+        }
+
+    </style> 
+</body>
+</html>
