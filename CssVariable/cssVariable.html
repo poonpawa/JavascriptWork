@@ -10,28 +10,37 @@
     <h1>Update CSS variable with <span class="h1">JS</span></h1>
     <div class="controls">
         <label for="spacing">Spacing :</label>
-        <input type="range" min="10" max="200" value="10" >
+        <input type="range" name="spacing" min="10" max="200" value="10" data-units="px" >
 
         <label for="blur">Blur :</label>
-        <input type="range" min="10" max="200" value="10" >
+        <input type="range" name="blur" min="0" max="200" value="0" data-units="px">
 
         <label for="color">Color :</label>
-        <input type="color" name="base" value="#ffc600" >
+        <input type="color" name="base" value="#ffc600" data-units="">
 
     </div>
     <br>
     <img src="./lights-image.jpg">   
     <style>
+        :root {
+            --spacing: 10px;
+            --blur: 0px;
+            --base:#ffc600;
+        }
+        
+        img {
+            height: 40%;
+            width: 50%;
+            background: var(--base);
+            padding: var(--spacing);
+            filter: blur(var(--blur));
+        }
+
         body {
             background: #00335A;
             color: beige;
             font-weight: 100;
             font-size: 50px;
-        }
-
-        img {
-            height: 40%;
-            width: 50%;
         }
         
         h1 {
@@ -43,5 +52,22 @@
         }
 
     </style> 
+    <script>
+        var allInputs = document.querySelectorAll('.controls input');
+
+        function handleUpdate() {
+
+            var suffix = this.dataset.units || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+
+        allInputs.forEach(function(input) {
+            input.addEventListener('change', handleUpdate);
+        });
+
+        
+    
+    
+    </script>
 </body>
 </html>
