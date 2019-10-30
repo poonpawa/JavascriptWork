@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSClock</title>
+    <link rel="stylesheet" href="./clock.css">
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-body">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand sec-hand"></div>
+            
+        </div>
+    </div>
+    <script>
+        let now, secDeg, sec, minutes, minDeg, hour, hourDeg;
+
+        const secondsHand = document.querySelector('.sec-hand'),
+            minutesHand = document.querySelector('.min-hand'),
+            hourHand = document.querySelector('.hour-hand');
+
+        function getDate() {
+            now = new Date();
+
+            sec = now.getSeconds();
+            secDeg = ((360/60) * sec) + 90;
+            secondsHand.style.transform = `rotate(${secDeg}deg)`;
+            console.log('sec :' + sec);
+
+
+            minutes = now.getMinutes();
+            minDeg = ((360/60) * minutes) + 90;
+            minutesHand.style.transform = `rotate(${minDeg}deg)`;
+            console.log('min :' + minutes);
+
+            hour = now.getHours();
+            hourDeg = ((360/12) * hour) + (0.5 * minutes) + 90;
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+            console.log('hour :' + hour);
+        }
+
+        setInterval(getDate, 1000);
+        
+    
+    </script>
+</body>
+</html>
