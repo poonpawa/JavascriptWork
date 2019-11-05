@@ -35,6 +35,32 @@
             <p>Motion</p>
         </div>
     </div>
+
+    <script>
+        const panelElement = document.querySelectorAll('.panel');
+
+        function toggleOpen(e) {
+            console.log(this);
+            this.classList.add('open');
+            
+        }
+
+        function toggleActive(e) {
+            if (e.propertyName.includes('flex')) {
+                this.classList.add('open-active');
+            }
+           
+        }
+
+        panelElement.forEach((panel) => {
+            panel.addEventListener('click', toggleOpen);
+            panel.addEventListener('transitionend', toggleActive);
+        });
+
+        /* panelElement.forEach((panel) => {
+            
+        }); */
+    </script>
     
 </body>
 </html>
