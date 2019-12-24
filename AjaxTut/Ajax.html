@@ -1,63 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./list.css">
-    <title>Ajax Type Ahead</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="./list.css" />
+        <title>Ajax Type Ahead</title>
+    </head>
+    <body>
+        <form class="search-form">
+            <input
+                type="text"
+                class="search"
+                placeholder="Enter city or state"
+            />
+            <ul class="suggestions">
+                <li>Enter a city</li>
+                <li>or a state</li>
+            </ul>
+        </form>
+        <script>
+            const endpoint =
+                "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
 
-    <form class="search-form">
-        <input type="text" class="search" placeholder="Enter city or state">
-        <ul class="suggestions">
-            <li>Enter a city</li>
-            <li>or a state</li>
-        </ul>
+            const searchBox = document.querySelector(".search"),
+                cities = [];
 
-    </form>
-    <script>
-        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+            let suggestions = document.querySelector(".suggestions");
 
-        const searchBox = document.querySelector('.search'),
-            cities = [];
+            fetch(endpoint)
+                .then(response => response.json())
+                .then(data => cities.push(...data));
 
-        let suggestions = document.querySelector('.suggestions');
+            function matchCharcter(letterToMatch, list) {
+                const regex = new RegExp(letterToMatch, "gi");
+                //filter all state and city from the list
+                return list.filter(
+                    data => data.city.match(regex) || data.state.match(regex)
+                );
+            }
 
+            function displayMatches() {
+                const filteredList = matchCharcter(this.value, cities);
 
-        fetch(endpoint)
-            .then(response => response.json())
-            .then(data => cities.push(...data));
-          
-        function matchCharcter(letterToMatch, list) {
-            const regex = new RegExp(letterToMatch, 'gi');
-            //filter all state and city from the list
-            return list.filter(data =>  data.city.match(regex) || data.state.match(regex));
-        }
+                let html = filteredList
+                    .map(data => {
+                        const regex = new RegExp(this.value, "gi");
 
-        function displayMatches() {
-            const filteredList = matchCharcter(this.value, cities);
+                        //highlighting the keyword in the filtered list by applying different styles
+                        const cityName = data.city.replace(
+                            regex,
+                            `<span class="hl">${this.value}</span>`
+                        );
+                        const stateName = data.state.replace(
+                            regex,
+                            `<span class="hl">${this.value}</span>`
+                        );
 
-            let html = filteredList.map(data => {
-                const regex = new RegExp(this.value, 'gi');
-                
-                //highlighting the keyword in the filtered list by applying different styles
-                const cityName = data.city.replace(regex, `<span class="hl">${this.value}</span>`);
-                const stateName = data.state.replace(regex, `<span class="hl">${this.value}</span>`);
-
-                return `
+                        return `
                 <li>
                 <span class="name">${cityName}, ${stateName}</span>
                 <span class="rank">${data.rank}</span>
                 </li>`;
-            }).join('');
-            
-            suggestions.innerHTML = html;
-            
-        }
-        searchBox.addEventListener('change', displayMatches);
-        searchBox.addEventListener('keyup', displayMatches);
-    </script>
-</body>
+                    })
+                    .join("");
+
+                suggestions.innerHTML = html;
+            }
+            searchBox.addEventListener("change", displayMatches);
+            searchBox.addEventListener("keyup", displayMatches);
+        </script>
+    </body>
 </html>
