@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Hold shift to select checkboxes</title>
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body>
+        <div class="inbox">
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the first item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the second item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the third item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the fourth item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the fifth item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the sixth item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the seventh item</p>
+            </div>
+            <div class="item">
+                <input type="checkbox" />
+                <p>This is the eigth item</p>
+            </div>
+        </div>
+        <script>
+            const checkboxesElement = document.querySelectorAll("input");
+            let lastChecked;
+
+            function handleCheck(e) {
+                if (e.shiftKey && this.checked) {
+                    let inBetween = false;
+                    checkboxesElement.forEach(checkbox => {
+                        if (checkbox === this || checkbox === lastChecked) {
+                            inBetween = !inBetween;
+                            console.log(this);
+                        }
+
+                        if (inBetween) {
+                            checkbox.checked = true;
+                        }
+                    });
+                }
+                lastChecked = this;
+            }
+
+            checkboxesElement.forEach(checkbox =>
+                checkbox.addEventListener("click", handleCheck)
+            );
+        </script>
+    </body>
+</html>
