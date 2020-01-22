@@ -1,0 +1,22 @@
+/* You are given a function, , that takes four parameters, , ,  and , denoting the length of the square's edges.
+Using prototype properties, add a method to  named  that prints true if a Square object has equal edges and false if they are unequal. */
+
+function Square(a, b, c, d) {
+    this.a = a;
+    this.b = b;
+    this.c = c;
+    this.d = d;
+}
+
+Square.prototype.isSquare = function() {
+    console.log(this.a, this.b, this.c, this.d);
+    if (this.a === this.b && this.b === this.c && this.c === this.d) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+const square1 = new Square(4, 4, 4, 4);
+
+console.log(square1.isSquare());
